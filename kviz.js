@@ -46,10 +46,10 @@ function zobrazOtazku(aktualniOtazka) {
     document.querySelector('#obrazek').src = 'obrazky/' + otazky[aktualniOtazka].obrazek;
 
     for (let i = 0; i < otazky[aktualniOtazka].moznosti.length; i++) {
-        const odpovedi = document.createElement('ul');
+        let odpovedi = document.createElement('ul');
         odpovedi.setAttribute('id', 'odpovedi');
 
-        const moznost = document.createElement('li');
+        let moznost = document.createElement('li');
         moznost.setAttribute('data-odpoved', i);
         moznost.setAttribute('onclick', 'klikNaOdpoved(this)');
         moznost.innerHTML = otazky[aktualniOtazka].moznosti[i];
@@ -59,10 +59,10 @@ function zobrazOtazku(aktualniOtazka) {
     }
 }
 
+zobrazOtazku(aktualniOtazka);
+
 let indexOdpovedi;
 let textOdpovedi;
-
-zobrazOtazku(aktualniOtazka);
 
 function klikNaOdpoved(moznost) {
     indexOdpovedi = moznost.getAttribute('data-odpoved');
@@ -71,6 +71,8 @@ function klikNaOdpoved(moznost) {
     otazky[aktualniOtazka].zvolenaMoznost = indexOdpovedi;
     otazky[aktualniOtazka].textZvoleneMoznosti = textOdpovedi;
 
+    document.querySelector('#moznosti').innerHTML = "";
+    
     aktualniOtazka++;
 
     if (aktualniOtazka < otazky.length) {
@@ -94,8 +96,8 @@ function zobrazVyhodnoceni() {
         volba.innerHTML = 'Tvoje odpověď: ' + otazky[i].textZvoleneMoznosti;
 
         let vyhodnoceni = document.createElement('p');
-        if (otazky[i].zvolenaMoznost === otazky[i].spravnaOdpoved) {
-            vyhodnoceni.innerHTML = 'To je správně!';
+        if (otazky[i].zvolenaMoznost == otazky[i].spravnaOdpoved) {
+            vyhodnoceni.innerHTML = 'To je SPRÁVNĚ!';
             pocetSpravnychOdpovedi++;
         } else {
             vyhodnoceni.innerHTML = 'Správná odpověď: ' + otazky[i].moznosti[otazky[i].spravnaOdpoved];
@@ -105,4 +107,9 @@ function zobrazVyhodnoceni() {
         vysledky.appendChild(volba);
         vysledky.appendChild(vyhodnoceni);
     }
+
+    let uspesnost = document.createElement('h2');
+    let procento = Math.floor((pocetSpravnychOdpovedi/otazky.length) * 100 );
+    uspesnost.innerHTML = 'Správně ' + pocetSpravnychOdpovedi + ' ze ' + otazky.length + ' otázek. Úspěšnost ' + procento + ' %.';
+    document.querySelector('.vysledek').appendChild(uspesnost);
 }
