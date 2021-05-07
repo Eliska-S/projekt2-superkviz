@@ -116,3 +116,8 @@ h1 {
 	font-size: 36px;
 	color: var(--cervena);
 }
+
+#hodnoceni {
+	margin-top: 50px;
+	color: var(--cervena);
+}

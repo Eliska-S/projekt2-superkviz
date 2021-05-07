@@ -71,7 +71,7 @@ function klikNaOdpoved(moznost) {
     otazky[aktualniOtazka].zvolenaMoznost = indexOdpovedi;
     otazky[aktualniOtazka].textZvoleneMoznosti = textOdpovedi;
 
-    document.querySelector('#moznosti').innerHTML = "";
+    document.querySelector('#moznosti').innerHTML =  "";
     
     aktualniOtazka++;
 
@@ -109,6 +109,7 @@ function zobrazVyhodnoceni() {
     }
 
     let uspesnost = document.createElement('h2');
+    uspesnost.setAttribute('id', 'hodnoceni');
     let procento = Math.floor((pocetSpravnychOdpovedi/otazky.length) * 100 );
     uspesnost.innerHTML = 'Správně ' + pocetSpravnychOdpovedi + ' ze ' + otazky.length + ' otázek. Úspěšnost ' + procento + ' %.';
     document.querySelector('.vysledek').appendChild(uspesnost);
